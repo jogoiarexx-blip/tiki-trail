@@ -2,6 +2,7 @@
 
 (() => {
   const installButton = document.getElementById("pwa-install");
+  const isWebOrigin = location.protocol === "http:" || location.protocol === "https:";
   let deferredInstallPrompt = null;
 
   const isStandalone = () =>
@@ -13,7 +14,7 @@
   };
 
   const showInstallButton = () => {
-    if (!installButton || isStandalone()) return;
+    if (!installButton || !isWebOrigin || isStandalone()) return;
     installButton.hidden = false;
     Object.assign(installButton.style, {
       position: "fixed",
@@ -30,6 +31,18 @@
       cursor: "pointer"
     });
   };
+
+  // file:// mode is kept intentionally playable by double click.
+  // PWA install/Service Worker are browser features that require http(s).
+  if (!isWebOrigin) {
+    hideInstallButton();
+    return;
+  }
+
+  const manifest = document.createElement("link");
+  manifest.rel = "manifest";
+  manifest.href = "./manifest.webmanifest";
+  document.head.appendChild(manifest);
 
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
@@ -53,7 +66,7 @@
     hideInstallButton();
   });
 
-  if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  if ("serviceWorker" in navigator) {
     window.addEventListener("load", async () => {
       try {
         const registration = await navigator.serviceWorker.register("./sw.js", { scope: "./" });

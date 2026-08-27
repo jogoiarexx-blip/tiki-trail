@@ -24,3 +24,10 @@ Depois abra:
 
 SOBRE A MODULARIZAÇÃO
 O arquivo original tiki-trail.js já veio como bundle React compilado/minificado (~2 MB). Ele foi isolado em assets/js/game.bundle.js sem alteração para reduzir risco de quebrar o jogo. Para separar internamente em player.js, fases.js, audio.js, input.js etc., é necessário o código-fonte anterior ao build/bundle.
+
+
+CORRECAO v3 - FILE:// E WEBGL
+- O sprite 32-bit foi incorporado ao bundle como data URI para evitar canvas WebGL contaminado ao abrir index.html com dois cliques.
+- Em file:// o jogo roda sem registrar Service Worker/manifest.
+- Instalacao PWA e cache offline continuam habilitados quando publicado em localhost, GitHub Pages, Render ou outro host HTTP/HTTPS.
+- Cache atualizado para tiki-trail-v3.
