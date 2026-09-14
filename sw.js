@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_VERSION = "tiki-trail-v3";
+const CACHE_VERSION = "tiki-trail-v6";
 const APP_SHELL = [
   "./",
   "./index.html",
