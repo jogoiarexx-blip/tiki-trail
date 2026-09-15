@@ -1,33 +1,29 @@
-TIKI TRAIL — VERSÃO ORGANIZADA + PWA
+TIKI TRAIL
 
-ESTRUTURA
-index.html                       Entrada mínima do jogo
-manifest.webmanifest             Metadados da instalação PWA
-sw.js                            Service Worker / cache offline
-offline.html                     Fallback de navegação offline
-assets/css/game.css              Estilos compilados do jogo
-assets/js/game.bundle.js         Bundle compilado atual do jogo
-assets/js/pwa.js                 Instalação PWA e registro do Service Worker
-assets/icons/icon-192.png        Ícone PWA 192x192
-assets/icons/icon-512.png        Ícone PWA 512x512
+Projeto web/PWA de plataforma 2D tropical, organizado para funcionar diretamente no GitHub Pages.
 
-IMPORTANTE
-- O jogo continua abrindo por index.html com dois cliques, mas Service Worker e instalação PWA NÃO funcionam em file://.
-- Para instalar e testar offline, publique em HTTPS (GitHub Pages, Render, Netlify etc.) ou use localhost.
-- O progresso atual continua usando o armazenamento local do navegador, pois a lógica original do jogo foi preservada.
+ESTRUTURA PRINCIPAL
+- index.html na raiz
+- assets/css/game.css
+- assets/js/game.bundle.js
+- assets/js/render-fix-v7.js
+- assets/js/pwa.js
+- assets/sprites/player-32bit.webp
+- assets/sprites/integrated/ com os sprite sheets atuais
+- assets/icons/
+- manifest.webmanifest
+- sw.js
+- offline.html
 
-TESTE LOCAL COM PWA
-Se tiver Python instalado, abra um terminal nesta pasta e execute:
-  python -m http.server 8080
-Depois abra:
-  http://localhost:8080
+ATUALIZACAO v7
+- Corrigido o desenho das plataformas para separar visual e colisao.
+- O sprite de piso nao e mais esticado pela altura inteira dos colliders.
+- O corpo das plataformas usa novamente o renderer procedural original e o sprite funciona apenas como acabamento da superficie.
+- Armadilhas de espinhos agora usam o mesmo Y fisico da colisao e crescem para cima.
+- O personagem teve ajuste visual de 4 px para os pes coincidirem melhor com a superficie fisica.
+- Guard e Lantern Hunter tiveram o ponto visual de apoio no chao corrigido.
+- Frames de sprites duplicados foram removidos da publicacao; permanecem apenas os sprite sheets usados pelo jogo.
+- Cache PWA atualizado para tiki-trail-v7.
 
-SOBRE A MODULARIZAÇÃO
-O arquivo original tiki-trail.js já veio como bundle React compilado/minificado (~2 MB). Ele foi isolado em assets/js/game.bundle.js sem alteração para reduzir risco de quebrar o jogo. Para separar internamente em player.js, fases.js, audio.js, input.js etc., é necessário o código-fonte anterior ao build/bundle.
-
-
-CORRECAO v3 - FILE:// E WEBGL
-- O sprite 32-bit foi incorporado ao bundle como data URI para evitar canvas WebGL contaminado ao abrir index.html com dois cliques.
-- Em file:// o jogo roda sem registrar Service Worker/manifest.
-- Instalacao PWA e cache offline continuam habilitados quando publicado em localhost, GitHub Pages, Render ou outro host HTTP/HTTPS.
-- Cache atualizado para tiki-trail-v3.
+GITHUB PAGES
+O index.html fica na raiz do repositorio. Todos os caminhos de CSS, JavaScript, icones e assets usam caminhos relativos compativeis com GitHub Pages.
