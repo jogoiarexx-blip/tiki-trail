@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_VERSION = "tiki-trail-v6";
+const CACHE_VERSION = "tiki-trail-v7";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const APP_SHELL = [
   "./manifest.webmanifest",
   "./assets/css/game.css",
   "./assets/js/game.bundle.js",
+  "./assets/js/render-fix-v7.js",
   "./assets/sprites/player-32bit.webp",
   "./assets/js/pwa.js",
   "./assets/icons/icon-192.png",
